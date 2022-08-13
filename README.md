@@ -28,4 +28,4 @@ Url: http://localhost:8081/notionToConfluence
 https://solstice-jackfruit-f5b.notion.site/Ringover-f9cb55e5ebe34c39987e9337ba61ead4
 
 #### Respective Converted Page in Confluence:
-https://androdat.atlassian.net/l/cp/99KZZpuV
+https://androdat.atlassian.net/l/cp/CzU2Lmnh
