@@ -1,4 +1,7 @@
 # Backend-Ringover
+
+To Run Server: node Server.js 
+
 API Data
 ```javascript
 {
