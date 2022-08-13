@@ -7,6 +7,10 @@ API Data
     confluenceSpace:"TFR"
 }
 
+```javascript
+{ "some": "json" }
+```
+
 Keys used here are for sample only generate your own keys
 1. Notion API Token.
 2. Confluence API Token (send it in your_email@domain.com:your_user_api_token format)
