@@ -2,7 +2,7 @@
 
 To Run Server: node Server.js 
 
-API Data
+### API Data
 ```javascript
 {
     "notionApiToken":"secret_iufNTmTklhliGZ2lpvDiNDwSuntAgmqT5FOeNNC1NbF",
@@ -12,18 +12,18 @@ API Data
 }
 ```
 
-Keys used here are for sample only generate your own keys
+### Keys used here are for sample only generate your own keys
 1. Notion API Token.
 2. Confluence API Token (send it in your_email@domain.com:your_user_api_token format)
 3. Page ID of Notion Page to be converted.
 4. Confluence Space Key Confluence Space where page will be generated.
 
-Links to generate API Tokens
-Notion: https://www.notion.com/my-integrations
-Confluence: https://developer.atlassian.com/cloud/confluence/basic-auth-for-rest-apis/
+### Links to generate API Tokens
+1. Notion: https://www.notion.com/my-integrations
+2. Confluence: https://developer.atlassian.com/cloud/confluence/basic-auth-for-rest-apis/
  
-Sample Notion Page Converted for Testing:
+#### Sample Notion Page Converted for Testing:
 https://solstice-jackfruit-f5b.notion.site/Ringover-f9cb55e5ebe34c39987e9337ba61ead4
 
-Respective Converted Page in Confluence:
+#### Respective Converted Page in Confluence:
 https://androdat.atlassian.net/l/cp/99KZZpuV
