@@ -16,8 +16,8 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   const data = req.body;
 
-  let msg = validateData(data);
-  if (msg != "") res.status(201).send({ status: "F", msg: msg });
+  const errorMsg = validateData(data);
+  if (errorMsg != "") res.status(401).send({ status: "F", msg: errorMsg });
   else {
     try {
       setNotionApiToken(data.notionPageId, data.notionApiToken);
@@ -40,19 +40,21 @@ const validateData = (data) => {
   let msg = "";
   switch (false) {
     case "notionApiToken" in data:
-      msg += "notionApiToken missing\\n";
+      msg +=
+        "notionApiToken missing or request parameter has incorrect spelling";
       break;
     case "notionPageId" in data:
-      msg += "notionPageId missing\\n";
+      msg += "notionPageId missing or request parameter has incorrect spelling";
       break;
     case "confluenceApiToken" in data:
-      msg += "confluenceApiToken missing\\n";
+      msg +=
+        "confluenceApiToken missing or request parameter has incorrect spelling";
       break;
     case "confluenceSpace" in data:
-      msg += "confluenceSpace missing\\n";
+      msg +=
+        "confluenceSpace missing or request parameter has incorrect spelling";
       break;
     default:
-      console.log("everything present");
       for (let key in data) {
         if (data[key] === "") {
           msg += `${key} is empty `;

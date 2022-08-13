@@ -6,8 +6,8 @@ var BLOCK_ID = "";
 //START PROCESS
 const startProcessNotion = async () => {
   const pageTitle = await getPageTitle();
-  var levelOneData = await getLevelOneData();
-  var levelOneContent = await getLevelOneContent(levelOneData);
+  const levelOneData = await getLevelOneData();
+  const levelOneContent = await getLevelOneContent(levelOneData);
   const obj = { pageTitle: pageTitle, pageData: levelOneContent };
   return obj;
 };
@@ -24,15 +24,15 @@ const getPageTitle = async () => {
 
 const getLevelOneData = async () => {
   const notion = new Client({ auth: NOTION_TOKEN });
-  var filteredData = [];
-  var originalDataFromAPi = [];
+  let filteredData = [];
+  let originalDataFromAPi = [];
   const response = await notion.blocks.children.list({
     block_id: BLOCK_ID,
     page_size: 50,
   });
   originalDataFromAPi = response.results;
-  originalDataFromAPi.map((item, index) => {
-    var accessType = item.type;
+  originalDataFromAPi.map((item) => {
+    let accessType = item.type;
     let obj = {
       object: item.object,
       id: item.id,
@@ -46,102 +46,93 @@ const getLevelOneData = async () => {
 };
 
 const getLevelOneContent = async (levelOneData) => {
-  var tableData = [];
-  for (var i = 0; i < levelOneData.length; i++) {
+  for (let i = 0; i < levelOneData.length; i++) {
     switch (true) {
       case levelOneData[i].type === "paragraph" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          var obj = { content: itm.text.content };
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const paragraphObj = { content: itm.text.content };
+          levelOneData[i].data = paragraphObj;
         });
         break;
 
       case levelOneData[i].type === "heading_1" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          var obj = { content: itm.text.content };
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const heading_1Obj = { content: itm.text.content };
+          levelOneData[i].data = heading_1Obj;
         });
         break;
-
       case levelOneData[i].type === "heading_2" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          var obj = { content: itm.text.content };
-          //   console.log(obj);
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const heading_2Obj = { content: itm.text.content };
+          levelOneData[i].data = heading_2Obj;
         });
         break;
       case levelOneData[i].type === "heading_3" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          var obj = { content: itm.text.content };
-          //   console.log(obj);
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const heading_3Obj = { content: itm.text.content };
+          levelOneData[i].data = heading_3Obj;
         });
         break;
       case levelOneData[i].type === "callout" &&
         levelOneData[i].has_children === false:
-        var txtval = "";
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          txtval = itm.text.content;
+        let calloutTxtval = "";
+        levelOneData[i].data.rich_text.map((itm) => {
+          calloutTxtval = itm.text.content;
         });
-        var obj = { content: txtval, icon: levelOneData[i].data.icon.emoji };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const calloutObj = {
+          content: calloutTxtval,
+          icon: levelOneData[i].data.icon.emoji,
+        };
+        levelOneData[i].data = calloutObj;
         break;
       case levelOneData[i].type === "quote" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          var obj = { content: itm.text.content };
-          //   console.log(obj);
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const quoteObj = { content: itm.text.content };
+          levelOneData[i].data = quoteObj;
         });
         break;
       case levelOneData[i].type === "bulleted_list_item" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          var obj = { content: itm.text.content, link: itm.text.link };
-          //   console.log(obj);
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const bulleted_list_itemObj = { content: itm.text.content, link: itm.text.link };
+          levelOneData[i].data = bulleted_list_itemObj;
         });
         break;
       case levelOneData[i].type === "numbered_list_item" &&
         levelOneData[i].has_children === false:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          var obj = { content: itm.text.content, link: itm.text.link };
-          //   console.log(obj);
-          levelOneData[i].data = obj;
+        levelOneData[i].data.rich_text.map((itm) => {
+          const numbered_list_itemObj = { content: itm.text.content, link: itm.text.link };
+          levelOneData[i].data = numbered_list_itemObj;
         });
         break;
       case levelOneData[i].type === "to_do" &&
         levelOneData[i].has_children === false:
-        var txtval = "";
+        let to_doTxtval = "";
         levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          txtval = itm.text.content;
+          to_doTxtval = itm.text.content;
         });
-        var obj = { content: txtval, checked: levelOneData[i].data.checked };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const to_doObj = {
+          content: to_doTxtval,
+          checked: levelOneData[i].data.checked,
+        };
+        levelOneData[i].data = to_doObj;
         break;
       case levelOneData[i].type === "code" &&
         levelOneData[i].has_children === false:
-        var txtval = "";
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          txtval = itm.text.content;
+        let codeTxtval = "";
+        levelOneData[i].data.rich_text.map((itm) => {
+          codeTxtval = itm.text.content;
         });
-        var obj = { content: txtval, language: levelOneData[i].data.language };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const codeObj = {
+          content: codeTxtval,
+          language: levelOneData[i].data.language,
+        };
+        levelOneData[i].data = codeObj;
         break;
       //   case levelOneData[i].type === "child_page" &&
       //     levelOneData[i].has_children === false:
@@ -151,21 +142,18 @@ const getLevelOneContent = async (levelOneData) => {
       //     break;
       case levelOneData[i].type === "video" &&
         levelOneData[i].has_children === false:
-        var obj = { content: levelOneData[i].data.external.url };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const videoObj = { content: levelOneData[i].data.external.url };
+        levelOneData[i].data = videoObj;
         break;
       case levelOneData[i].type === "image" &&
         levelOneData[i].has_children === false:
-        var obj = { content: levelOneData[i].data.file };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const imageObj = { content: levelOneData[i].data.file };
+        levelOneData[i].data = imageObj;
         break;
       case levelOneData[i].type === "file" &&
         levelOneData[i].has_children === false:
-        var obj = { content: levelOneData[i].data.file };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const fileObj = { content: levelOneData[i].data.file };
+        levelOneData[i].data = fileObj;
         break;
       //   case levelOneData[i].type === "pdf" &&
       //     levelOneData[i].has_children === false:
@@ -175,49 +163,44 @@ const getLevelOneContent = async (levelOneData) => {
       //     break;
       case levelOneData[i].type === "bookmark" &&
         levelOneData[i].has_children === false:
-        var obj = { content: levelOneData[i].data.url };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const bookmarkObj = { content: levelOneData[i].data.url };
+        levelOneData[i].data = bookmarkObj;
         break;
       case levelOneData[i].type === "equation" &&
         levelOneData[i].has_children === false:
-        var obj = { content: levelOneData[i].data.expression };
-        // console.log(obj);
-        levelOneData[i].data = obj;
+        const equationObj = { content: levelOneData[i].data.expression };
+        levelOneData[i].data = equationObj;
         break;
       //Nested Elements
-      case levelOneData[i].type === "toggle" &&
-        levelOneData[i].has_children === true:
-        levelOneData[i].data.rich_text.map((itm, idx) => {
-          //   console.log("content = " + itm.text.content);
-          var obj = { content: itm.text.content };
-          //   console.log("--------");
-          //   console.log(obj);
-        });
-        //send item id ie block id
-        // await getBlockChildren(item.id)
-        break;
+      // case levelOneData[i].type === "toggle" &&
+      //   levelOneData[i].has_children === true:
+      //   levelOneData[i].data.rich_text.map((itm, idx) => {
+      //     //   console.log("content = " + itm.text.content);
+      //     var obj = { content: itm.text.content };
+      //     //   console.log("--------");
+      //     //   console.log(obj);
+      //   });
+      //   //send item id ie block id
+      //   // await getBlockChildren(item.id)
+      //   break;
       case levelOneData[i].type === "table" &&
         levelOneData[i].has_children === true:
-        var table_width = levelOneData[i].data.table_width;
-        var has_column_header = levelOneData[i].data.has_column_header;
-        var has_row_header = levelOneData[i].data.has_row_header;
+        let table_width = levelOneData[i].data.table_width;
+        let has_column_header = levelOneData[i].data.has_column_header;
+        let has_row_header = levelOneData[i].data.has_row_header;
 
         //cal get block children
-        var data = await getTableChildren(levelOneData[i].id);
-        //   console.log(response);
-
-        var obj = {
+        let finalTableChildren = await getTableChildren(levelOneData[i].id);
+        const tableObj = {
           table_width: table_width,
           has_column_header: has_column_header,
           has_row_header: has_row_header,
-          data: data,
+          data: finalTableChildren,
         };
-
-        levelOneData[i].data = obj;
+        levelOneData[i].data = tableObj;
         break;
       default:
-      // console.log("switch default case for " + item.type + item.has_children);
+      // console.log("switch default case for " + levelOneData[i].type + levelOneData[i].has_children);
     }
   }
   return levelOneData;
@@ -225,15 +208,14 @@ const getLevelOneContent = async (levelOneData) => {
 
 const getTableChildren = async (block_id) => {
   const notion = new Client({ auth: NOTION_TOKEN });
-  var data = [];
+  let finalTableChildren = [];
+  let tableChild = [];
   const response = await notion.blocks.children.list({
     block_id: block_id,
     page_size: 50,
   });
-  var tc = [];
-
-  response.results.map((item, index) => {
-    var accessType = item.type;
+  response.results.map((item) => {
+    let accessType = item.type;
     const obj = {
       object: item.object,
       id: item.id,
@@ -241,21 +223,19 @@ const getTableChildren = async (block_id) => {
       type: item.type,
       data: item[accessType],
     };
-    tc.push(obj);
+    tableChild.push(obj);
   });
-
-  tc.map((item, index) => {
-    var rowVal = [];
+  tableChild.map((item, index) => {
+    let rowVal = [];
     item.data.cells.map((cellitem) => {
       cellitem.map((cellitemval) => {
         rowVal.push(cellitemval.plain_text);
       });
     });
-    var obj = { row: index, content: rowVal };
-
-    data.push(obj);
+    const obj = { row: index, content: rowVal };
+    finalTableChildren.push(obj);
   });
-  return data;
+  return finalTableChildren;
 };
 const setNotionApiToken = (notionPageId, notionApiToken) => {
   NOTION_TOKEN = notionApiToken;

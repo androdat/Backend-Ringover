@@ -4,8 +4,8 @@ var CONFLUENCE_TOKEN = "";
 
 const startConfluenceProcess = async (confluenceSpace, confluenceApiToken) => {
   setConfluenceApiToken(confluenceApiToken);
-  var data = await startProcessNotion();
-  var apiBodyData = generateBodyData(
+  const data = await startProcessNotion();
+  const apiBodyData = generateBodyData(
     data.pageData,
     data.pageTitle,
     confluenceSpace
@@ -14,7 +14,6 @@ const startConfluenceProcess = async (confluenceSpace, confluenceApiToken) => {
     let res = await pushToConfluenceApiCall(apiBodyData);
     return res;
   } catch (error) {
-    console.log(error);
     throw new Error(`${error.response.data.message}`);
   }
 };
@@ -30,13 +29,11 @@ const pushToConfluenceApiCall = async (apiBodyData) => {
       "Content-Type": "application/json",
     },
   });
-
   if (res.status == 200) {
-    let obj = {
+    const obj = {
       status: "S",
       successMessage: "Confluence Page Created",
     };
-
     return obj;
   }
 };
@@ -61,7 +58,7 @@ const generateBodyData = (data, title, confluenceSpace) => {
 };
 
 const getBodyValues = (data) => {
-  var string = "";
+  let string = "";
   data.map((item, index) => {
     switch (true) {
       case item.type === "paragraph":
@@ -98,12 +95,12 @@ const getBodyValues = (data) => {
       case item.type === "to_do":
         string += `<ul> <li>${item.data.content}</li> </ul>`;
         break;
-      case item.type === "code":
-        string += `<p>${item.data.language.replaceAll(
-          "\n",
-          "<br/>"
-        )} ${item.data.content.replaceAll("\n", "<br/>")}</p>`;
-        break;
+      // case item.type === "code":
+      //   string += `<p>${item.data.language.replaceAll(
+      //     "\n",
+      //     "<br/>"
+      //   )} ${item.data.content.replaceAll("\n", "<br/>")}</p>`;
+      //   break;
       case item.type === "child_page":
         string += `<h3>This is the child page from Notion ${item.data.title}</h3>`;
         break;
@@ -123,11 +120,9 @@ const getBodyValues = (data) => {
       //     string += `<p>PDF here ${item.data.content}</p>`;
       //     break;
       case item.type === "bookmark":
-        console.log(item.data.content);
         string += `<p>Bookmark <a href='${item.data.content}' data-card-appearance='inline'>${item.data.content}</a> </p>`;
         break;
       case item.type === "equation":
-        console.log(item.data.content);
         string += `<p>Equation here ${item.data.content}</p>`;
         break;
       case item.type === "table":
@@ -141,39 +136,35 @@ const getBodyValues = (data) => {
   return string;
 };
 const getTableRows = (data, width) => {
-  var rowString = "";
-  console.log(data);
+  let rowString = "";
   data.map((item, index) => {
     if (index === 0) {
       let tr = "";
-      item.content.map((itm, idx) => {
+      item.content.map((itm) => {
         let td = `<th>${itm.trim()}</th>`;
         tr += td;
       });
       //add label tr
-      let xyz = `<tr>${tr}</tr>`;
-      rowString += xyz;
+      let appendTrTag = `<tr>${tr}</tr>`;
+      rowString += appendTrTag;
     } else {
-      var tr = "";
-      item.content.map((itm, idx) => {
-        var td = `<td>${itm.trim()}</td>`;
+      let tr = "";
+      item.content.map((itm) => {
+        let td = `<td>${itm.trim()}</td>`;
         tr += td;
       });
       //add label tr
-      var xyz = `<tr>${tr}</tr>`;
-      rowString += xyz;
+      let appendTrTag = `<tr>${tr}</tr>`;
+      rowString += appendTrTag;
     }
   });
   return rowString;
 };
 
 const setConfluenceApiToken = (confluenceApiToken) => {
-  console.log(confluenceApiToken);
-  var buffer = Buffer.from(confluenceApiToken);
-  var string = buffer.toString("base64");
-  console.log(string);
+  const buffer = Buffer.from(confluenceApiToken);
+  const string = buffer.toString("base64");
   CONFLUENCE_TOKEN = `Basic ${string}`;
-  console.log(CONFLUENCE_TOKEN);
 };
 
 // startConfluenceProcess();
