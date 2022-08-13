@@ -14,7 +14,7 @@ To Run Server: node Server.js
 
 ### Keys used here are for sample only generate your own keys
 1. Notion API Token.
-2. Confluence API Token (send it in your_email@domain.com:your_user_api_token format)
+2. Confluence API Token (send it in `your_email@domain.com:your_user_api_token` format) base64 encoding of authorization credentials handled in code no need to do it manually.
 3. Page ID of Notion Page to be converted.
 4. Confluence Space Key Confluence Space where page will be generated.
 
