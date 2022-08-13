@@ -18,6 +18,10 @@ Keys used here are for sample only generate your own keys
 3. Page ID of Notion Page to be converted.
 4. Confluence Space Key Confluence Space where page will be generated.
 
+Links to generate API Tokens
+Notion: https://www.notion.com/my-integrations
+Confluence: https://developer.atlassian.com/cloud/confluence/basic-auth-for-rest-apis/
+ 
 Sample Notion Page Converted for Testing:
 https://solstice-jackfruit-f5b.notion.site/Ringover-f9cb55e5ebe34c39987e9337ba61ead4
 
