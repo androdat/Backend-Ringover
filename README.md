@@ -1,6 +1,9 @@
 # Backend-Ringover
 
-To Run Server: node Server.js 
+To Run Server: 
+
+npm install
+node Server.js 
 
 Url: http://localhost:8081/notionToConfluence
 
