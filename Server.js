@@ -28,7 +28,7 @@ app.post("/", async (req, res) => {
       if (resp.status === "S")
         res.status(201).send({ status: "S", msg: resp.successMessage });
     } catch (err) {
-      return res.status(401).send({ status: "F", error: err.message });
+      return res.status(400).send({ status: "F", error: err.message });
     }
   }
 });

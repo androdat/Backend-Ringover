@@ -99,14 +99,20 @@ const getLevelOneContent = async (levelOneData) => {
       case levelOneData[i].type === "bulleted_list_item" &&
         levelOneData[i].has_children === false:
         levelOneData[i].data.rich_text.map((itm) => {
-          const bulleted_list_itemObj = { content: itm.text.content, link: itm.text.link };
+          const bulleted_list_itemObj = {
+            content: itm.text.content,
+            link: itm.text.link,
+          };
           levelOneData[i].data = bulleted_list_itemObj;
         });
         break;
       case levelOneData[i].type === "numbered_list_item" &&
         levelOneData[i].has_children === false:
         levelOneData[i].data.rich_text.map((itm) => {
-          const numbered_list_itemObj = { content: itm.text.content, link: itm.text.link };
+          const numbered_list_itemObj = {
+            content: itm.text.content,
+            link: itm.text.link,
+          };
           levelOneData[i].data = numbered_list_itemObj;
         });
         break;
@@ -228,6 +234,10 @@ const getTableChildren = async (block_id) => {
   tableChild.map((item, index) => {
     let rowVal = [];
     item.data.cells.map((cellitem) => {
+      var length = cellitem.length;
+      if (cellitem.length === 0) {
+        rowVal.push("");
+      }
       cellitem.map((cellitemval) => {
         rowVal.push(cellitemval.plain_text);
       });
