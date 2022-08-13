@@ -1,0 +1,25 @@
+{
+  "name": "backend-ringover",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Confluence.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/androdat/Backend-Ringover.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/androdat/Backend-Ringover/issues"
+  },
+  "homepage": "https://github.com/androdat/Backend-Ringover#readme",
+  "dependencies": {
+    "@notionhq/client": "^2.1.1",
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  }
+}
