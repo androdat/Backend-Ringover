@@ -2,9 +2,9 @@
 
 To Run Server: node Server.js 
 
-Url: http://localhost:8081/notiontoconfluence
+Url: http://localhost:8081/notionToConfluence
 
-### API Data
+### API Request Body Data
 ```javascript
 {
     "notionApiToken":"secret_iufNTmTklhliGZ2lpvDiNDwSuntAgmqT5FOeNNC1NbF",
