@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   res.send("Use Post Method");
 });
 
-app.post("/", async (req, res) => {
+app.post("/notiontoconfluence", async (req, res) => {
   const data = req.body;
 
   const errorMsg = validateData(data);
